@@ -34,21 +34,21 @@ def analyze():
         while db.is_code_in_db(code) != 0:
             code = ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', k=40))
         container.write('Ваш уникальный код: ' + code)
+        container.write('Никогда не передавайте секретный код третьим лицам!')
         
     try:
         with open('temp_file.nii', 'wb') as f:
             f.write(nii_input.read())
         
         main('temp_file.nii')
-            
-        col1, col2 = container.columns(2)
-        liver = col1.image(['liver.png'], caption=['Печень'], use_column_width="always")
-        tumor = col2.image(['tumor.png'], caption=['Опухоль'], use_column_width="always")
+        
+        container.markdown('### Опухоль выделена на изображении')
+        liver = container.image(['liver.png'])
+        # tumor = col2.image(['tumor.png'], caption=['Опухоль'], use_column_width="always")
 
         
          
         db.add_results(code)
-        container.write('Никогда не передавайте секретный код третьим лицам!')
     except Exception as e:
         print(e.with_traceback())
         err()

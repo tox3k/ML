@@ -15,10 +15,9 @@ def show_results(code):
     res = db.get_results(code)
     if res:
         for item in res:
-            container.text(f'Дата анализа: {item[2]}')
-            col1, col2 = container.columns(2)
-            col1.image([item[0]], caption=['Печень'], use_column_width="always")
-            col2.image([item[1]], caption=['Опухоль'], use_column_width="always")
+            box = container.container()
+            box.text(f'Дата анализа: {item[2]}')
+            box.image([item[0]])
     else:
         container.info('Пользователя с таким уникальным ключом не существует, проверьте правильность введения')
 
